@@ -12,7 +12,8 @@ public class Main {
     // infinite loop so that program don't get terminated and objects don't get
     // destroyed.
     while (true) {
-
+its 9,35 
+    
       System.out.print("Are you existing customer of SBI? Y/N\n");
       String response = scan.next();
 
@@ -54,6 +55,7 @@ public class Main {
 
         default -> {
           System.out.print("\nCheck your response.");
+          scan.close();
           System.exit(0);
         }
       }

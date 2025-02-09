@@ -95,7 +95,7 @@ public class Banking {
 
   // Withdraw amount;
   private void withdraw(double amount, String PIN) {
-    if ((amount > 0) && (this.PIN.equals(PIN))) {
+    if ((amount > 0 && amount < balance) && (this.PIN.equals(PIN))) {
       balance = balance - amount;
       System.out.println("Withdrawal successful.");
     } else
