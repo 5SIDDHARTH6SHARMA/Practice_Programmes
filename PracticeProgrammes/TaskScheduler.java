@@ -37,10 +37,6 @@
 
 public class TaskScheduler {
 
-  // a static int variable to keep track of executeNext() method to execute the
-  // next upcoming task
-  // private static Task index;
-
   // Creating a Task class, having attributies ID, Task Description, and two
   // referrences, one to refer previous task, another to refer the next task
   private class Task {
@@ -98,12 +94,6 @@ public class TaskScheduler {
       System.out.println("Error!! No task in the task list");
       return;
     }
-
-    // if (head == tail) {
-    // head = null;
-    // tail = null;
-    // return;
-    // }
 
     // if the tasks list is not empty, then with the help of temp, iterating over
     // all tasks to see which matches with the give ID
