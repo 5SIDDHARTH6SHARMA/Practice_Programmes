@@ -20,5 +20,18 @@ public class Main {
 
         // SelectionSort sorting = new SelectionSort();
 
+        TaskScheduler scheduler = new TaskScheduler();
+        scheduler.addTask(1, "Send Email");
+        scheduler.addTask(2, "Generate Report");
+        scheduler.addTask(3, "Backup Database");
+
+        scheduler.executeNext(); // Executes: Send Email
+        scheduler.executeNext(); // Executes: Generate Report
+        scheduler.executeNext(); // Executes: Backup Database
+        scheduler.executeNext(); // Executes: Send Email (loops back)
+
+        scheduler.removeTask(2); // Removes "Generate Report"
+        scheduler.executeNext(); // Executes: Backup Database
+
     }
 }
