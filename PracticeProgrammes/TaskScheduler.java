@@ -101,11 +101,20 @@ public class TaskScheduler {
     while (temp.id != id) {
 
       // if there is not task with the given ID, printing error message
-      if (temp.next == null) {
+      if (temp.next == head) {
         System.out.println("Error!! Couldn't find the task with given ID");
         return;
       }
       temp = temp.next;
+    }
+
+    // if only one task is in the list, then just make head, tail, and index refer
+    // to null, all tasks will then be eligible for garbage collection
+    if (head == tail) {
+      head = null;
+      tail = null;
+      index = null;
+      return;
     }
 
     // if the task is head task, then assigning the head position to the next task
@@ -126,7 +135,8 @@ public class TaskScheduler {
     temp = null;
     temp1 = null;
     temp2 = null;
-    index = index.next;
+    if (index != null && index.next != null)
+      index = index.next;
   }
 
   // executeNext() will execute tasks one after the another per call. Using index
@@ -137,7 +147,7 @@ public class TaskScheduler {
       isStarted = true;
     }
     System.out.println((index == null ? "No tasks to execute" : "Executes: " + index.description));
-    if (index.next != null)
+    if (index != null && index.next != null)
       index = index.next;
 
   }

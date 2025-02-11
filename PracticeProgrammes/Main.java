@@ -1,5 +1,4 @@
 public class Main {
-
     public static void main(String args[]) {
 
         // FindIndex object1 = new FindIndex("abcdeafbc");
@@ -23,15 +22,17 @@ public class Main {
         TaskScheduler scheduler = new TaskScheduler();
         scheduler.addTask(1, "Send Email");
         scheduler.addTask(2, "Generate Report");
-        scheduler.addTask(3, "Backup Database");
+        scheduler.removeTask(3);
+        scheduler.displayTasks();
+        // scheduler.addTask(3, "Backup Database");
 
-        scheduler.executeNext(); // Executes: Send Email
-        scheduler.executeNext(); // Executes: Generate Report
-        scheduler.executeNext(); // Executes: Backup Database
-        scheduler.executeNext(); // Executes: Send Email (loops back)
+        // scheduler.executeNext(); // Executes: Send Email
+        // scheduler.executeNext(); // Executes: Generate Report
+        // scheduler.executeNext(); // Executes: Backup Database
+        // scheduler.executeNext(); // Executes: Send Email (loops back)
 
-        scheduler.removeTask(2); // Removes "Generate Report"
-        scheduler.executeNext(); // Executes: Backup Database
+        // scheduler.removeTask(2); // Removes "Generate Report"
+        // scheduler.executeNext(); // Executes: Backup Database
 
     }
 }
