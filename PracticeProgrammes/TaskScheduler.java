@@ -35,7 +35,6 @@
 // scheduler.removeTask(2);  // Removes "Generate Report"
 // scheduler.executeNext();  // Executes: Backup Database
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskScheduler {
