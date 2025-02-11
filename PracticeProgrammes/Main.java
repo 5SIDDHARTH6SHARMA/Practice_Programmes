@@ -1,38 +1,50 @@
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws NumberFormatException {
 
-        // FindIndex object1 = new FindIndex("abcdeafbc");
+        System.out.printf(
+                "This is a task scheduler. Made with love for Tomate 💖");
 
-        // System.out.println(object1.getIndex());
-
-        // CountSetBits object2 = new CountSetBits();
-        // object2.countSetBits(5654);
-
-        // PowerOfTwo object3 = new PowerOfTwo();
-        // System.out.println(object3.isPowerOfTwo(255));
-
-        // Factorial fact = new Factorial();
-        // System.out.println("Factorial of the number is: " + fact.factorial(8));
-
-        // MergeSort merge = new MergeSort();
-        // merge.printSortedArray();
-
-        // SelectionSort sorting = new SelectionSort();
-
+        Scanner scan = new Scanner(System.in);
         TaskScheduler scheduler = new TaskScheduler();
-        scheduler.addTask(1, "Send Email");
-        scheduler.addTask(2, "Generate Report");
-        scheduler.removeTask(3);
-        scheduler.displayTasks();
-        // scheduler.addTask(3, "Backup Database");
+        Boolean toContinue = true;
+        String input;
+        do {
+            System.out.printf(
+                    "\nPress 1 to add new task(s).\nPress 2 to remove a task. \nPress 3 to execute the next task in your tasks list. \nPress 4 to display all the tasks you have in your tasks list. \nPress any other key to exit.\n...\n");
 
-        // scheduler.executeNext(); // Executes: Send Email
-        // scheduler.executeNext(); // Executes: Generate Report
-        // scheduler.executeNext(); // Executes: Backup Database
-        // scheduler.executeNext(); // Executes: Send Email (loops back)
+            input = scan.nextLine();
+            switch (input) {
+                case "1" -> scheduler.addTask();
+                case "2" -> scheduler.removeTask();
+                case "3" -> scheduler.executeNext();
+                case "4" -> scheduler.displayTasks();
+                default -> toContinue = false;
+            }
 
-        // scheduler.removeTask(2); // Removes "Generate Report"
-        // scheduler.executeNext(); // Executes: Backup Database
+            Boolean innerContinue = true;
+            while (innerContinue) {
+                System.out.println("Do you wish to continue? (Yes/No)");
+                input = scan.nextLine();
+
+                switch (input) {
+                    case "No", "no" -> {
+                        toContinue = false;
+                        innerContinue = false;
+                    }
+                    case "yes", "Yes" -> {
+                        toContinue = true;
+                        innerContinue = false;
+                    }
+                    default -> System.out.println("Invalid Input!!");
+                }
+            }
+        } while (toContinue);
+
+        System.out.println("Thank you for using Task Scheduler. Have a very beautiful day ahead.");
+
+        scan.close();
 
     }
 }

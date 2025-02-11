@@ -35,6 +35,9 @@
 // scheduler.removeTask(2);  // Removes "Generate Report"
 // scheduler.executeNext();  // Executes: Backup Database
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class TaskScheduler {
 
   // Creating a Task class, having attributies ID, Task Description, and two
@@ -57,9 +60,10 @@ public class TaskScheduler {
   // removing tasks
   Task head, tail, temp, index;
   Boolean isStarted = false;
+  Scanner scan = new Scanner(System.in);
 
   // addTask method adds a new task at the end of the tasks list
-  public void addTask(int id, String description) {
+  private void addTaskInternal(int id, String description) {
 
     // Creating a new task with the given ID and description
     Task newTask = new Task(id, description);
@@ -87,12 +91,12 @@ public class TaskScheduler {
   }
 
   // removeTask removes a task with the ID that matches with that of the given ID.
-  public void removeTask(int id) {
+  private boolean removeTaskInternal(int id) {
 
     // if the tasks list is empty then printing error message
     if (head == null) {
       System.out.println("Error!! No task in the task list");
-      return;
+      return false;
     }
 
     // if the tasks list is not empty, then with the help of temp, iterating over
@@ -103,7 +107,7 @@ public class TaskScheduler {
       // if there is not task with the given ID, printing error message
       if (temp.next == head) {
         System.out.println("Error!! Couldn't find the task with given ID");
-        return;
+        return false;
       }
       temp = temp.next;
     }
@@ -114,7 +118,7 @@ public class TaskScheduler {
       head = null;
       tail = null;
       index = null;
-      return;
+      return true;
     }
 
     // if the task is head task, then assigning the head position to the next task
@@ -137,11 +141,12 @@ public class TaskScheduler {
     temp2 = null;
     if (index != null && index.next != null)
       index = index.next;
+    return true;
   }
 
   // executeNext() will execute tasks one after the another per call. Using index
   // reference variable to keep track.
-  public void executeNext() {
+  private void executeNextInternal() {
     if (!isStarted || index == null) {
       index = head;
       isStarted = true;
@@ -154,7 +159,7 @@ public class TaskScheduler {
 
   // simply display all the tasks using do-while loop, starting from head task
   // till head task encounters again
-  public void displayTasks() {
+  private void displayTasksInternal() {
     temp = head;
     if (temp == null) {
       System.out.println("No tasks to display");
@@ -165,6 +170,74 @@ public class TaskScheduler {
       System.out.println(temp.id + " " + temp.description);
       temp = temp.next;
     } while (temp != head);
+  }
+
+  // public void addTaskOld() {
+
+  // ArrayList<String> tasks = new ArrayList<>();
+  // String input;
+
+  // System.out.printf(
+  // "To add a task, Just enter a unique number (your task ID) and enter the task
+  // description.\n For example: \n 1 Wake up \n 2 Brush your teeth \n ... \n
+  // Please enter your tasks now (type \"done\" without \"\" when done) \n");
+  // do {
+  // input = scan.nextLine();
+  // if (!input.equals("done") && !input.equals("Done"))
+  // tasks.add(input);
+  // } while (!input.equals("done"));
+
+  // System.out.println("Tasks you entered are: " + tasks);
+  // StringBuilder stringBuilder = new StringBuilder();
+
+  // for (String iterate : tasks) {
+  // while (!iterate.isEmpty() && iterate.charAt(0) != ' ') {
+  // stringBuilder.append(iterate.charAt(0));
+  // iterate = iterate.substring(1);
+  // }
+  // iterate.substring(1);
+  // addTaskInternal(Integer.parseInt(stringBuilder.toString()), iterate);
+  // stringBuilder.setLength(0);
+  // }
+  // }
+
+  public void addTask() {
+    String input;
+    System.out.printf(
+        "To add a task, Just enter a unique number (your task ID) and enter the task description.\n For example: \n 1 Wake up \n 2 Brush your teeth \n ... \n Please enter your tasks now (type \"done\" without \"\" when done) \n");
+
+    StringBuilder stringBuilder = new StringBuilder();
+
+    do {
+      input = scan.nextLine();
+
+      if (!input.equals("done") && !input.equals("Done")) {
+        while (!input.isEmpty() && input.charAt(0) != ' ') {
+          stringBuilder.append(input.charAt(0));
+          input = input.substring(1);
+        }
+        addTaskInternal(Integer.parseInt(stringBuilder.toString()), input.substring(1));
+        stringBuilder.setLength(0);
+      }
+    } while (!input.equals("done"));
+
+    System.out.println("Tasks added successfully");
+
+  }
+
+  public void removeTask() {
+    System.out.print("Please enter the ID of the task that you wish to remove from your tasks list: ");
+    if (removeTaskInternal(scan.nextInt()))
+      System.out.println("Task removed sucessfully");
+    scan.nextLine();
+  }
+
+  public void executeNext() {
+    executeNextInternal();
+  }
+
+  public void displayTasks() {
+    displayTasksInternal();
   }
 
 }
