@@ -5,6 +5,13 @@
       "type": "java",
       "name": "Main",
       "request": "launch",
+      "mainClass": "ValentineSpecial.Main",
+      "projectName": "PracticeProgrammes_67c0feae"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
       "mainClass": "Main",
       "projectName": "PracticeProgrammes_67c0feae"
     },
